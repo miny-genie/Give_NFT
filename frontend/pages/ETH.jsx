@@ -64,6 +64,28 @@ export default function MyComponent() {
     }
   }
 
+  // 출금하기
+  async function withdraw() {
+    if (web3) {
+      try {
+        const accounts = await web3.eth.getAccounts();
+        console.log('연결된 계정:', accounts[0]);
+        setAccount(accounts[0]);
+
+        // 스마트 컨트랙트 인스턴스 생성
+        const contract = new web3.eth.Contract(contractAbi, contractAddress);
+
+        // 출금 실행
+        const result = await contract.methods.withdraw().send({ from: accounts[0] });
+        console.log('출금 결과:', result);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log('MetaMask에 연결되지 않았습니다.');
+    }
+  }
+
   return (
     <div>
       <h1>Connecting Web3.js and MetaMask</h1>
@@ -80,6 +102,7 @@ export default function MyComponent() {
         <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
       </div>
       <button onClick={sendMatic}>기부하기</button>
+      <button onClick={withdraw}>출금하기</button>
     </div>
   );
 }
