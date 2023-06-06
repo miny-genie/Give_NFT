@@ -66,7 +66,7 @@ export default function MyComponent() {
 
   return (
     <div>
-      <h1>Web3.js와 MetaMask 연결 예제</h1>
+      <h1>Connecting Web3.js and MetaMask</h1>
       <div>
         <label>받을 사람 주소:</label>
         <input type="text" value={receiver} onChange={(e) => setReceiver(e.target.value)} />
